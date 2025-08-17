@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const seedDB = require('./seed/productSeeds');
-const syncWeaviate = require('./sync/syncWeaviate');
+// const syncWeaviate = require('./sync/syncWeaviate');   # Disabled for production (no Weaviate)
 const productRoutes = require('./routes/products');
 const checkoutRoutes = require('./routes/checkout');
 const authRoutes = require('./routes/auth');
@@ -14,14 +14,14 @@ const { swaggerUi, swaggerSpec, setupSwaggerUi, setupSwaggerJson } = require('./
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Database Connection + Seed + Weaviate Sync + Server Start
+// Database Connection + Seed + Server Start
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(async () => {
-    console.log('MongoDB Connected');
+    console.log('✅ MongoDB Connected');
 
     // 1. Seed the database
     try {
@@ -31,17 +31,17 @@ mongoose
       console.error('❌ Seeding error:', err);
     }
 
-    // 2. Sync with Weaviate
-    try {
-      await syncWeaviate();
-      console.log('✅ Weaviate synced');
-    } catch (err) {
-      console.error('❌ Weaviate sync error:', err);
-    }
+    // 2. Sync with Weaviate (DISABLED)
+    // try {
+    //   await syncWeaviate();
+    //   console.log('✅ Weaviate synced');
+    // } catch (err) {
+    //   console.error('❌ Weaviate sync error:', err);
+    // }
 
     // 3. Start Express server
     app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server ready on port ${PORT}.`);
+      console.log(`✅ Server ready on port ${PORT}.`);
     });
   })
   .catch(err => {
@@ -70,3 +70,4 @@ app.use('/api/search', require('./routes/search'));
 app.use('/api/auth', authRoutes);
 
 module.exports = app;
+

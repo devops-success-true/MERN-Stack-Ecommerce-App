@@ -5,18 +5,8 @@
   "description": "A backend server for Fusion Electronics - a MERN stack e-commerce website",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec 'npm run sync-weaviate && node index.js'",
-    "build": "node index.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "seed": "node seed/productSeeds.js dev",
-    "dev": "nodemon --exec 'npm run sync-weaviate && node index.js'",
-    "weaviate-upsert": "node scripts/weaviate-upsert.js",
-    "weaviate-query": "node scripts/query-weaviate.js",
-    "sync-weaviate": "node scripts/sync-weaviate-ids.js",
-    "faiss-upsert": "node scripts/build-faiss-index.js",
-    "faiss-search": "node scripts/search-faiss-index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "backend",
@@ -46,14 +36,11 @@
     "dotenv": "^16.6.1",
     "express": "^4.19.2",
     "express-validator": "^7.2.0",
-    "faiss-node": "^0.5.1",
     "http-proxy-middleware": "^3.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.3",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1",
-    "weaviate-client": "^3.6.2",
-    "weaviate-ts-client": "^2.2.0"
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "exit-x": "^0.2.2",
@@ -63,3 +50,4 @@
     "supertest": "^7.1.1"
   }
 }
+
